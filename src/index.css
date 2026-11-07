@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-ink: #0a1416;
+  --color-deep: #0c191c;
+  --color-panel: #101f23;
+  --color-panel2: #13262b;
+  --color-raise: #183138;
+  --color-line: #1d3a40;
+  --color-fog: #e9f4f1;
+  --color-dim: #8ba6a1;
+  --color-faint: #5c7a76;
+  --color-mint: #3ecfae;
+  --color-mintdim: #1d5c4f;
+  --color-amber: #f2b441;
+  --color-amberdim: #6b5120;
+  --color-coral: #f0616d;
+  --color-coraldim: #6b2c33;
+  --color-steel: #6fb6c9;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-fog);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(1100px 520px at 12% -6%, rgba(62, 207, 174, 0.09), transparent 62%),
+    radial-gradient(900px 480px at 96% 8%, rgba(242, 180, 65, 0.07), transparent 60%),
+    radial-gradient(760px 700px at 50% 118%, rgba(111, 182, 201, 0.06), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(139, 166, 161, 0.045) 0 1px, transparent 1px 56px),
+    repeating-linear-gradient(90deg, rgba(139, 166, 161, 0.045) 0 1px, transparent 1px 56px);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(62, 207, 174, 0.32);
+  color: #eafff9;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #24464d transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #24464d;
+  border-radius: 8px;
+}
+
+/* ---------- ticker ---------- */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll 26s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ---------- card sheen + tilt ---------- */
+.card3d {
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+.card3d.tilting {
+  transition: transform 0.08s linear;
+}
+.sheen {
+  background: radial-gradient(
+    320px 220px at var(--sx, 30%) var(--sy, 20%),
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.05) 45%,
+    transparent 70%
+  );
+}
+@keyframes holo {
+  0%, 100% { filter: hue-rotate(0deg); opacity: 0.85; }
+  50% { filter: hue-rotate(38deg); opacity: 1; }
+}
+.holo {
+  animation: holo 5s ease-in-out infinite;
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- status pulse ---------- */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(62, 207, 174, 0.45); }
+  60% { box-shadow: 0 0 0 7px rgba(62, 207, 174, 0); }
+}
+.pulse-dot {
+  animation: pulse-dot 2.2s ease-out infinite;
+}
+
+/* ---------- digit chips ---------- */
+@keyframes chip-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.chip-in {
+  animation: chip-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes stamp-in {
+  0% { opacity: 0; transform: rotate(-14deg) scale(1.7); }
+  60% { opacity: 1; transform: rotate(-8deg) scale(0.96); }
+  100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+}
+.stamp-in {
+  animation: stamp-in 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-120%); }
+  100% { transform: translateY(1400%); }
+}
+.scanline {
+  animation: scan 3.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+.blink {
+  animation: blink 1.1s steps(2, start) infinite;
+}
